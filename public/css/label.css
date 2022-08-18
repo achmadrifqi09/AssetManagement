@@ -1,0 +1,75 @@
+.canvas {
+    width: 594px;
+    height: 284px;
+    background-color: white;
+    color: black;
+    padding: 14px;
+}
+
+.rectangular {
+    display: flex;
+    border: solid 3px black;
+    width: 566px;
+    height: 256px;
+    box-sizing: border-box;
+}
+
+
+
+.box-logo {
+    border-right: solid 3px black;
+    width: 182px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.rectangular img {
+    width: 140px;
+}
+
+.box-description {
+    width: 384px;
+    text-align: center;
+}
+
+.col1 {
+    border-bottom: solid 3px black;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22pt;
+}
+
+.col2 {
+    border-bottom: solid 3px black;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.col3 {
+    border-bottom: solid 3px black;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.wrap-right-button {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.content-wrapper {
+    overflow: scroll;
+}
+
+.content-wrapper::-webkit-scrollbar {
+    display: none;
+}
