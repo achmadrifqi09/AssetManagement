@@ -41,7 +41,7 @@ class AssetExport implements FromQuery, WithMapping, WithHeadings, ShouldAutoSiz
                 $asset->price,
                 $asset->location,
                 $asset->user,
-                $asset->description
+                $asset->description,
             ];
         }else if($this->request->category == 'Tak Berwujud'){
             return [

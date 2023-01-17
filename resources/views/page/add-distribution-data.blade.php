@@ -82,7 +82,7 @@
             </select>
         </div>
         <div class="wrap-input">
-            <label for="selectFinanceAsset">Sub Bag.Keuangan & Aset*</label>
+            <label for="selectFinanceAsset">Kepala Dinas*</label>
             <select class="select" name="finance_and_assets_subsection_id" id="selectFinanceAsset" style="width:100%" required>
                @foreach ($employees as $employee)
                     @if (old('finance_and_assets_subsection_id') == $employee->id)
@@ -94,7 +94,7 @@
             </select>
         </div>
         <div class="wrap-input">
-            <label for="selectItemManager">Pengurus Barang Pengguna*</label>
+            <label for="selectItemManager">Sub Bag.Keuangan & Aset*</label>
             <select class="select" name="user_item_manager_id" id="selectItemManager" style="width:100%" required>
                @foreach ($employees as $employee)
                     @if (old('user_item_manager_id') == $employee->id)
@@ -108,6 +108,10 @@
         <div class="wrap-input">
             <label for="reference_number">Nomor Surat*</label>
             <input type="text" id="reference_number" name="reference_number" required value="{{ old('reference_number') }}">
+        </div>
+        <div class="wrap-input">
+            <label for="field">Bidang/Sekretariat*</label>
+            <input type="text" id="field" name="field" required value="{{ old('field') }}">
         </div>
         <div class="wrap-input">
             <label for="necessity">Keperluan*</label>

@@ -10,6 +10,15 @@
 @section('view-of-content')
 <h2>Update Data</h2>
 <div class="content-wrapper">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <p class="form-title">Kolom bertanda * wajib diisi.</p>
     <i>*Jika aset sudah terdaftar dalam BAST dan ada perubahan terhadap pengguna aset maka data pengguna dalam BAST akan berubah</i>
     <form method="POST" action="/asset-management/{{ $asset->id }}/edit" enctype="multipart/form-data">
@@ -133,7 +142,7 @@
                 <input type="text" id="creator" name="creator" value="{{ old('creator', $asset->creator) }}" >
             </div>
             <div class="wrap-input">
-                <label for="title">Judal / Nama</label>
+                <label for="title">Judul / Nama</label>
                 <input type="text" id="title" value="{{ old('title', $asset->title) }}" name="title" >
             </div>
         </div>

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('used_item');
             $table->string('text_used_item');
             $table->string('description');
+            $table->string('field')->nullable();
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
 
 @section('view-of-content')
     <div class="content-wrapper">
-        <p>Unduh file dalam format JGP</p>
+        <p>Unduh file dalam format JPG</p>
         <a class="button-primary" style="width: 140px;" id="download">Unduh Label</a>
         <a class="button-warm" style="width: 140px;" href="/asset-management">Kembali</a>
     </div>
@@ -35,6 +35,10 @@
                         <div class="col3">
                             Nama Barang - Merk <br>
                             {{ $asset->item_name }} - {{ $asset->brand }}
+                        </div>
+                        <div class="col2">
+                            Lokasi Barang <br>
+                            {{ $asset->location ?? '-' }}
                         </div>
                         <div class="col4">
                             <b>DINAS KOMUNIKASI DAN INFORMATIKA KABUPATEN MALANG</b>

@@ -16,7 +16,7 @@ class DistributionController extends Controller
     public function index()
     {
         return view('page/distribution-asset', [
-            'distributions' => Distribution::with(['assets', 'employee', 'supervisor', 'financeasset', 'itemmanager'])->get(),
+            'distributions' => Distribution::orderBy('created_at', 'desc')->with(['assets', 'employee', 'supervisor', 'financeasset', 'itemmanager'])->get(),
             
         ]);
     }
@@ -43,6 +43,10 @@ class DistributionController extends Controller
             'used_item' => 'required',
             'description' => 'required'
         ]);
+
+        if($request->field){
+            $validatedData['field'] = $request->field;
+        }
 
         $assets = Asset::where(function($query) use ($request){
             foreach($request->asset_id as $id){
@@ -141,6 +145,11 @@ class DistributionController extends Controller
             'used_item' => 'required',
             'description' => 'required'
         ]);
+
+        if($request->field){
+            $validatedData['field'] = $request->field;
+        }
+        
         $dist = Distribution::find($id);
 
         $newAssets = Asset::where(function($query) use ($request){

@@ -37,7 +37,7 @@
             </div>
             <div class="wrap-input">
                 <label for="nip">NIP</label>
-                <input type="number" id="nip" name="nip" value="{{ old('nip', $employee->nip) }}">
+                <input type="text" id="nip" name="nip" value="{{ old('nip', $employee->nip) }}">
             </div>
             <div class="wrap-input">
                 <label for="group">Golongan</label>

@@ -271,7 +271,7 @@
             <td colspan="5" class="f-normal justify-text">
                 Berdasarkan Peraturan Menteri Dalam Negeri Nomor 19 Tahun 2016 tentang Pedoman Pengelolaan
                 Barang Milik Daerah, maka Kedua Belah Pihak dalam kedudukanya sebagaimana tersebut diatas,
-                sepakat untuk membuat dan menandatangani Berta Acara Sera Terima Barang Inventaris Milik
+                sepakat untuk membuat dan menandatangani Berita Acara Serah Terima Barang Inventaris Milik
                 Daerah Kabupaten Malang, dengan ketentuan sebagai berikut:
             </td>
         </tr>
@@ -312,8 +312,13 @@
                         benar dan lengkap.</li>
                     <li>
                         Barang Inventaris Milik Pemerintah Kabupaten Malang dimaksud pada ayat (1) dipergunakan untuk
-                        menunjang kegiatan penyelenggaraan tugas pokok dan fungsi pada Bidang Komunikasi Dinas
-                        Komunikasi dan Informatika Kabupaten Malang.
+                        menunjang kegiatan penyelenggaraan tugas pokok dan fungsi pada 
+                        @if ($dist?->field)
+                            {{ $dist->field }}
+                        @else
+                            -
+                        @endif 
+                        Dinas Komunikasi dan Informatika Kabupaten Malang.
                     </li>
                     <li>
                         Barang Inventaris Milik Pemerintah Daerah Kabupaten Malang yang diserahkan sebagaimana di

@@ -20,18 +20,19 @@ class AssetController extends Controller
    
     public function index()
     {
-        $tangibleAssets = Asset::where('item_category', 'Berwujud');
+        $tangibleAssets = Asset::orderBy('created_at', 'desc')->where('item_category', 'Berwujud');
         $assets = Asset::groupBy('item_year')->select('item_year', DB::raw('count(*) as total'))->get();
         $itemsYear = [];
         foreach ($assets as $asset){
             array_push($itemsYear, $asset->item_year);
         }
 
-        $intangibleAssets = Asset::where('item_category', 'Tak Berwujud');
+        $intangibleAssets = Asset::orderBy('created_at', 'desc')->where('item_category', 'Tak Berwujud');
         return view('page/asset-management', [
             'tangibleAssets' => $tangibleAssets->get(),
             'intangibleAssets' => $intangibleAssets->get(),
-            'itemsYear' => $itemsYear
+            'itemsYear' => $itemsYear,
+            'employees' => Employee::all()
         ]);
     }
 
@@ -54,7 +55,8 @@ class AssetController extends Controller
             'item_year' => 'required',
             'total' => 'required',
             'item_condition' => 'required',
-            'price' =>'required'
+            'price' =>'required',
+            'physical_evidence' => 'max:800'
         ]);
 
         $code = function(){
@@ -177,7 +179,8 @@ class AssetController extends Controller
             'item_year' => 'required',
             'total' => 'required',
             'item_condition' => 'required',
-            'price' =>'required'
+            'price' =>'required',
+            'physical_evidence'=>'max:800'
         ]);
 
 
@@ -274,29 +277,52 @@ class AssetController extends Controller
         ini_set("memory_limit", "800M");
         ini_set("max_execution_time", "800");
 
-        $title = 'BERDASARKAN PENCARIAN ';
+        $firstTitle= 'DAFTAR ASET DINAS KOMUNIKASI DAN INFORMATIKA';
+        $secondTitle = 'BERDASARKAN PENCARIAN ';
         $keywords = explode(' ', $request->name);
-       
+
+        $users = $request->user;
+        
+       if($request->title != null){
+        $firstTitle = $request->title;
+       }
         $assets = Asset::where('item_category', '=', $request->category)
         ->where('item_year', '>=', $request->start_year)
         ->where('item_year', '<=', $request->end_year);
 
-        if($request->name != null){
-            $assets->where(function ($query) use ($keywords){
-                foreach($keywords as $keyword){
-                    $query->orWhere('item_name', 'like', '%' . $keyword . '%')->orWhere('brand', 'like', '%' . $keyword . '%');
-                }
-           });
-           $title = "{$title} {$request->name}";
+
+        if($users != null){
+            $assets->where('user', '=', $users);
+           
+           $secondTitle = "{$secondTitle} Pengguna";
+        }else{
+            if($request->name != null){
+                $assets->where(function ($query) use ($keywords){
+                    foreach($keywords as $keyword){
+                        $query->orWhere('item_name', 'like', '%' . $keyword . '%')
+                        ->orWhere('brand', 'like', '%' . $keyword . '%');
+                    }
+               });
+               $secondTitle = "{$secondTitle} {$request->name}";
+            }
         }
+
+        
 
         if($request->start_year != $request->end_year){
-            $title = $title." TAHUN {$request->start_year} - {$request->end_year}";
+            $secondTitle = $secondTitle." TAHUN {$request->start_year} - {$request->end_year}";
         }else{
-            $title = $title." TAHUN {$request->start_year}";
+            $secondTitle = $secondTitle." TAHUN {$request->start_year}";
         }
 
-        $pdf = Pdf::loadView('page/asset-pdf', ['assets' => $assets->get(), 'title' => strtoupper($title), 'category' => $request->category]);
+        $totalPrice = 0;
+        $totalItem = 0;
+        foreach($assets->get() as $asset){
+            $totalPrice += (int)$asset->price;
+            $totalItem += (int)$asset->total;
+        }
+        
+        $pdf = Pdf::loadView('page/asset-pdf', ['assets' => $assets->get(), 'secondTitle' => strtoupper($secondTitle), 'firstTitle'=> strtoupper($firstTitle), 'category' => $request->category, 'totalPrice'=>$totalPrice, 'totalItem' => $totalItem]);
         $pdf->setPaper([0, 0, 595.276, 935,433], 'landscape');
         return $pdf->stream('daftar-asset.pdf');
        

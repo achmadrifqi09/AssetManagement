@@ -36,21 +36,36 @@
             <table id="example" class=" nowrap table" style="width:100%">
                 <thead >
                     <tr>
+                        <th>BAST</th>
+                        <th>Aksi</th>
                         <th>Nama Barang</th>
                         <th>Merk</th>
                         <th>Kode Barang</th>
                         <th>Registrasi</th>
                         <th>Pengguna</th>
                         <th>Penanggung Jawab</th>
+                        <th>Bidang</th>
                         <th>Sub Bag.Keuangan & Aset</th>
                         <th>Pengurus Barang Pengguna</th>
-                        <th>BAST</th>
-                        <th>Aksi</th>
+                        
                     </tr>
                 </thead >
                 <tbody >
                         @foreach ($distributions as $dist)
                             <tr>
+                                <td>
+                                    <a class="button-primary" href="/bast/{{ $dist->id}}/generate-pdf-v1" data-bs-toggle="tooltip" data-bs-title="Lihat BAST Versi 1">V1</a>
+                                    <a class="button-primary" href="/bast/{{ $dist->id}}/generate-pdf-v2" data-bs-toggle="tooltip" data-bs-title="Lihat BAST Versi 2">V2</a>
+                                </td>
+                                <td>
+                                    <a class="button-warning" href="/bast/{{ $dist->id }}/edit" data-bs-toggle="tooltip" data-bs-title="Update BAST"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+                                    <form action="/bsat/{{ $dist->id }}" method="POST" class="d-inline">
+                                        @method('delete')
+                                        @csrf
+                                    <button class="button-danger" onclick="return confirm('Anda yakin menghapus data BSAT dengan nama penerima {{ $dist->employee->name }} ?')" data-bs-toggle="tooltip" data-bs-title="Hapus Pegawai"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </form>
+                                </td>
                                 <td>
                                     @foreach ($dist->assets as $asset)
                                         {{ $asset->item_name }}
@@ -83,21 +98,10 @@
                                 </td>
                                 <td>{{ $dist->employee->name }}</td>
                                 <td>{{ $dist->supervisor->name }}</td>
+                                <td>{{ $dist->field }}</td>
                                 <td>{{ $dist->financeasset->name }}</td>
                                 <td>{{ $dist->itemmanager->name }}</td>
-                                <td>
-                                    <a class="button-primary" href="/bast/{{ $dist->id}}/generate-pdf-v1">BAST V1</a>
-                                    <a class="button-primary" href="/bast/{{ $dist->id}}/generate-pdf-v2">BAST V2</a>
-                                </td>
-                                <td>
-                                    <a class="button-warning" href="/bast/{{ $dist->id }}/edit">Update</a>
-
-                                    <form action="/bsat/{{ $dist->id }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                    <button class="button-danger" onclick="return confirm('Anda yakin menghapus data BSAT dengan nama penerima {{ $dist->employee->name }} ?')">Delete</button>
-                                    </form>
-                                </td>
+                                
                             </tr>
                         @endforeach
                 </tbody>
@@ -114,5 +118,9 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('/js/table.js') }}"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))    
+    </script>
 
 @endsection

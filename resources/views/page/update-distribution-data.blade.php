@@ -103,6 +103,10 @@
             <input type="text" id="reference_number" name="reference_number" required value="{{ old('reference_number', $updatedData->reference_number) }}">
         </div>
         <div class="wrap-input">
+            <label for="field">Bidang/Sekretariat*</label>
+            <input type="text" id="field" name="field" required value="{{ old('field') }}">
+        </div>
+        <div class="wrap-input">
             <label for="necessity">Keperluan*</label>
             <input type="text" id="necessity" name="necessity" required value="{{ old('necessity', $updatedData->necessity) }}">
         </div>

@@ -90,12 +90,12 @@
                     <td>{{ $employee->group }}</td>
                     <td>{{ $employee->position }}</td>
                     <td>
-                        <a class="button-warning" href="/employee-list/{{ $employee->id }}/edit">Update</a>
+                        <a class="button-warning" href="/employee-list/{{ $employee->id }}/edit" data-bs-toggle="tooltip" data-bs-title="Update Pegawai"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <form action="/employee-list/{{ $employee->id }}" method="POST" class="d-inline">
                             @method('delete')
                             @csrf
                             <button class="button-danger"
-                                onclick="return confirm('Anda yakin menghapus data pengguna {{ $employee->name }} ?')">Delete</button>
+                                onclick="return confirm('Anda yakin menghapus data pengguna {{ $employee->name }} ?')" data-bs-toggle="tooltip" data-bs-title="Hapus Pegawai"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         </form>
                     </td>
                 </tr>
@@ -118,6 +118,9 @@
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 <script src="{{ asset('/js/table.js') }}"></script>
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))    
+
     const btn = document.getElementById('excel_data');
     const fileChosen = document.getElementById('file-chosen');
     btn.addEventListener('change', function () {

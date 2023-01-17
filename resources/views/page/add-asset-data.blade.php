@@ -11,6 +11,15 @@
 @section('view-of-content')
 <h2>Tambah Data</h2>
 <div class="content-wrapper">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <p class="form-title">Kolom bertanda * wajib diisi.</p>
     {{-- <p>Jika anda mencentang checkbox diwawah</p> --}}
     <form method="POST" action="/asset-management/add-asset-data" enctype="multipart/form-data">
@@ -148,7 +157,7 @@
                 <input type="text" id="creator" name="creator" value="{{ old('creator') }}" >
             </div>
             <div class="wrap-input">
-                <label for="title">Judal / Nama</label>
+                <label for="title">Judul / Nama</label>
                 <input type="text" id="title" value="{{ old('title') }}" name="title" >
             </div>
         </div>

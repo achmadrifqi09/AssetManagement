@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }}</title>
+    <title>Eksport File PDF</title>
     <style type="text/css">
         @page { margin: 28pt ; }
         @font-face {
@@ -43,7 +43,7 @@
         }
 
         .f-normal {
-            font-size: 10pt;
+            font-size: 8pt;
         }
 
         .f-12{
@@ -94,8 +94,8 @@
         <tr>
             <td colspan="5" class="td-header" style="width: 137px; padding-top:24px;">
                 <p>
-                    <span class="h2">DAFTAR ASET DINAS KOMUNIKASI DAN INFORMATIKA</span><br>
-                    <span class="h2">{{ $title }}</span>
+                    <span class="h2">{{$firstTitle}}</span><br>
+                    <span class="h2">{{ $secondTitle }}</span>
                 </p>
             </td>
 
@@ -116,7 +116,7 @@
                     <td class="border f-normal" style="max-width: 20px !important;"><b>No</b></td>
                     <td class="border f-normal" style="width : 30px;"><b>Kode Barang</b></td>
                     <td class="border f-normal" style="maxwidth: 30px !important;"><b>Register</b></td>
-                    <td class="border f-normal"><b>Nama / Jenis Barang</b></td>
+                    <td class="border f-normal" style="width : 30px !important;"><b>Nama / Jenis<br>Barang</b></td>
                     <td class="border f-normal"><b>Merk / Type</b></td>
                     <td class="border f-normal"><b>Asal / Cara Perolehan Barang</b></td>
                     <td class="border f-normal"><b>Tahun Pembelian</b></td>
@@ -124,7 +124,7 @@
                     <td class="border f-normal" style=" max-width: 80px !important;"><b>Pengguna</b></td>
                     <td class="border f-normal"><b>Keadaan Barang</b></td>
                     <td class="border f-normal"><b>Jumlah Barang</b></td>
-                    <td class="border f-normal"><b>Harga</b></td>
+                    <td class="border f-normal"><b>Harga (Rp)</b></td>
                     <td class="border f-normal"style="max-width: 300px;"><b>Keterangan</b></td>
                </tr>
             </thead>
@@ -142,10 +142,16 @@
                         <td class="border f-normal" style=" max-width: 80px !important;">{{ $asset->user }}</td>
                         <td class="border f-normal">{{ $asset->item_condition }}</td>
                         <td class="border f-normal">{{ $asset->total }}</td>
-                        <td class="border f-normal">{{ "Rp " . number_format($asset->price ,2,',','.');}}</td>
+                        <td class="border f-normal">{{  number_format($asset->price ,2,',','.');}}</td>
                         <td class="border f-normal" style="max-width: 300px;">{{ $asset->description }}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td class="border f-normal" colspan="10"><b>Total</b></td>
+                    <td class="border f-normal"><b>{{ $totalItem }}</b></td>
+                    <td class="border f-normal"><b>{{  number_format($totalPrice ,2,',','.');}}</b></td>
+                    <td class="border f-normal">&nbsp;</td>
+                </tr>
             </tbody>
 
         </table>
@@ -184,6 +190,12 @@
                     <td class="border f-normal" f-normal" style="width: 180px;">{{ $asset->description }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td class="border f-normal" colspan="10"><b>Total</b></td>
+                <td class="border f-normal"><b>{{ $totalItem }}</b></td>
+                <td class="border f-normal"><b>{{  number_format($totalPrice ,2,',','.');}}</b></td>
+                <td class="border f-normal">&nbsp;</td>
+            </tr>
         </tbody>
 
     </table>
